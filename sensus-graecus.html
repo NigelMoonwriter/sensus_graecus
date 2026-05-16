@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SENSUS GRAECUS — Diccionario Griego Clasico - Espanol</title>
+<style>
+:root{--black:#0a0a0a;--cream:#f5f0e8;--red:#c23b22;--gray-d:#333;--gray-m:#888;--gray-l:#d4cfc6;--serif:Georgia,'Times New Roman',serif;--sans:system-ui,-apple-system,sans-serif;--mono:Consolas,'Courier New',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--cream);color:var(--black);font-family:var(--sans);overflow-x:hidden;min-height:100vh}
+::selection{background:var(--red);color:var(--cream)}
+a{color:var(--red);text-decoration:none}
+.hero{position:relative;height:50vh;min-height:340px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;background:var(--black);color:var(--cream)}
+.hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-bg span{position:absolute;font-family:var(--serif);color:rgba(255,255,255,.04);font-weight:900;white-space:nowrap}
+.hero-bg .d1{font-size:22vw;top:-10%;left:-5%;transform:rotate(-8deg)}
+.hero-bg .d2{font-size:15vw;bottom:-5%;right:-3%;transform:rotate(12deg)}
+.hero-bg .d3{font-size:10vw;top:30%;left:60%;transform:rotate(-3deg);opacity:.5}
+.hero-title{font-family:var(--serif);font-size:clamp(2.8rem,7.5vw,6.5rem);font-weight:900;letter-spacing:-.03em;line-height:.9;z-index:2;text-transform:uppercase;position:relative}
+.hero-title .accent{color:var(--red);display:inline-block;transform:rotate(-5deg)}
+.hero-sub{font-family:var(--mono);font-size:clamp(.6rem,1.3vw,.85rem);letter-spacing:.3em;text-transform:uppercase;margin-top:1rem;z-index:2;opacity:.7}
+.hero-sub2{font-family:var(--serif);font-size:clamp(.85rem,1.8vw,1.2rem);font-style:italic;margin-top:.5rem;z-index:2;opacity:.5}
+.search-section{background:var(--cream);padding:1.5rem 1rem;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--black)}
+.search-wrap{max-width:700px;margin:0 auto;position:relative}
+.search-wrap input{width:100%;padding:.9rem 2.5rem .7rem 1.2rem;font-family:var(--serif);font-size:1.15rem;border:2px solid var(--black);background:transparent;outline:none;transition:border-color .2s}
+.search-wrap input:focus{border-color:var(--red)}
+.search-wrap input::placeholder{color:var(--gray-m);font-style:italic}
+.search-wrap .icon{position:absolute;right:1rem;top:50%;transform:translateY(-50%);font-size:1.2rem;opacity:.3;pointer-events:none}
+.mode-bar{display:flex;justify-content:center;gap:.5rem;padding:.5rem 1rem;background:var(--cream);max-width:700px;margin:0 auto}
+.mode-btn{padding:.3rem .8rem;border:1px solid var(--gray-m);background:transparent;font-family:var(--sans);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;cursor:pointer;transition:all .2s;border-radius:2px;color:var(--black)}
+.mode-btn.active{background:var(--black);color:var(--cream);border-color:var(--black)}
+.mode-btn:hover{border-color:var(--red)}
+.themes-nav{background:var(--cream);padding:.8rem 1rem;display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem;max-width:900px;margin:0 auto}
+.theme-btn{padding:.3rem .6rem;font-family:var(--mono);font-size:.62rem;border:1px solid var(--gray-l);background:transparent;cursor:pointer;transition:all .15s;text-transform:uppercase;border-radius:1px;color:var(--black)}
+.theme-btn:hover,.theme-btn.active{background:var(--black);color:var(--cream);border-color:var(--black)}
+.main{max-width:880px;margin:0 auto;padding:1.5rem 1rem 4rem}
+.entry-card{background:var(--cream);border:2px solid var(--black);margin-bottom:2rem;overflow:hidden;position:relative;transition:box-shadow .2s}
+.entry-card:hover{box-shadow:6px 6px 0 var(--black)}
+.entry-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--red)}
+.entry-card.featured{border-width:3px}
+.entry-header{padding:1.3rem 1.3rem .4rem;display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+.entry-lemma{font-family:var(--serif);font-size:1.8rem;font-weight:900;letter-spacing:-.02em}
+.entry-pos{font-family:var(--mono);font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--cream);background:var(--red);padding:.12rem .4rem;border-radius:1px}
+.entry-ipa{font-family:var(--mono);font-size:.78rem;color:var(--gray-m)}
+.entry-level{font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-m);margin-left:auto;background:var(--gray-l);padding:.1rem .35rem;border-radius:1px}
+.entry-body{padding:0 1.3rem 1.3rem}
+.entry-def{margin-bottom:1rem}
+.entry-def dt{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gray-m);margin-bottom:.25rem}
+.entry-def dd{font-family:var(--serif);font-size:.95rem;line-height:1.6;padding-left:.5rem;border-left:2px solid var(--gray-l);margin-bottom:.3rem}
+.etym-section{margin:.8rem 0;padding:.9rem;background:rgba(0,0,0,.03);border-left:3px solid var(--black)}
+.etym-section h4{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.5rem;color:var(--gray-d)}
+.etym-path{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem;font-family:var(--mono);font-size:.75rem}
+.etym-path .node{background:var(--black);color:var(--cream);padding:.15rem .45rem;font-size:.65rem;border-radius:1px}
+.etym-path .arrow{color:var(--red);font-weight:700;font-size:1rem}
+.etym-notes{font-style:italic;font-size:.82rem;color:var(--gray-d);margin-top:.4rem;line-height:1.5}
+.compare-section{margin:.8rem 0}
+.compare-section h4{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gray-m);margin-bottom:.4rem}
+.compare-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.compare-table th{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;padding:.35rem .4rem;border-bottom:2px solid var(--black);text-align:left;background:var(--black);color:var(--cream)}
+.compare-table td{padding:.35rem .4rem;border-bottom:1px solid var(--gray-l)}
+.entry-example{margin:.8rem 0;padding:.9rem 1rem;background:var(--black);color:var(--cream);font-family:var(--serif);font-style:italic;font-size:.9rem;line-height:1.55;position:relative;border-left:3px solid var(--red)}
+.tag{display:inline-block;padding:.1rem .35rem;font-family:var(--mono);font-size:.55rem;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--gray-l);margin-right:.25rem;margin-bottom:.25rem;border-radius:1px;color:var(--gray-d)}
+.deriv-section h4,.cogn-section h4{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gray-m);margin:.8rem 0 .4rem}
+.deriv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.4rem;margin:.4rem 0}
+.deriv-item{padding:.35rem .5rem;border:1px solid var(--gray-l);font-size:.78rem;display:flex;justify-content:space-between;align-items:center;border-radius:1px}
+.deriv-item .lang{font-family:var(--mono);font-size:.55rem;color:var(--red);text-transform:uppercase}
+body.mode-basico .lvl-intermedio,body.mode-basico .lvl-avanzado{display:none}
+body.mode-intermedio .lvl-basico,body.mode-intermedio .lvl-avanzado{display:none}
+body.mode-avanzado .lvl-basico{display:none}
+.no-results{text-align:center;padding:3rem 1rem;font-family:var(--serif);font-size:1.2rem;color:var(--gray-m)}
+.no-results small{display:block;margin-top:.5rem;font-size:.8rem;opacity:.6}
+.footer{background:var(--black);color:var(--cream);padding:2rem 1rem;text-align:center;font-family:var(--mono);font-size:.65rem;letter-spacing:.1em}
+.footer .logo{font-family:var(--serif);font-size:1.4rem;font-weight:900;margin-bottom:.4rem}
+.results-counter{text-align:center;font-family:var(--mono);font-size:.65rem;color:var(--gray-m);letter-spacing:.1em;margin-bottom:1rem;text-transform:uppercase}
+@media(max-width:600px){
+  .hero{height:38vh;min-height:260px}
+  .entry-header{padding:1rem 1rem .3rem}
+  .entry-lemma{font-size:1.4rem}
+  .entry-body{padding:0 1rem 1rem}
+  .themes-nav{padding:.5rem}
+  .deriv-grid{grid-template-columns:1fr}
+  .compare-table{font-size:.72rem}
+}
+</style>
+</head>
+<body class="mode-basico">
+<section class="hero">
+  <div class="hero-bg">
+    <span class="d1">SENSUS</span>
+    <span class="d2">GRAECUS</span>
+    <span class="d3">HELLENIKOS</span>
+  </div>
+  <div class="hero-title">SENSUS<br><span class="accent">GRAECUS</span></div>
+  <div class="hero-sub">Diccionario griego clasico &middot; espanol &middot; etimologia</div>
+  <div class="hero-sub2">los fundamentos del pensamiento occidental para curiosos, filologos y profesores</div>
+</section>
+<section class="search-section">
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="Buscar en griego o espanol..." autocomplete="off" spellcheck="false">
+    <span class="icon">&#x2318;</span>
+  </div>
+  <div class="mode-bar" id="modeBar">
+    <button class="mode-btn active" data-mode="basico">Aficionado</button>
+    <button class="mode-btn" data-mode="intermedio">Estudiante</button>
+    <button class="mode-btn" data-mode="avanzado">Profesor</button>
+  </div>
+  <nav class="themes-nav" id="themesNav"></nav>
+</section>
+<main class="main" id="mainContent"></main>
+<footer class="footer">
+  <div class="logo">ENTORNO GREKA</div>
+  <p>SENSUS GRAECUS &mdash; Diccionario Griego Clasico</p>
+  <p style="opacity:.4;margin-top:.25rem">Griego &middot; Espanol &middot; Etimologia &middot; Filosofia &middot; Ciencia &middot; Mitologia</p>
+</footer>
+<script>
+(function(){
+"use strict";
+
+var THEMES = [
+  {id:"I",label:"I. Filosofia fundamental"},
+  {id:"II",label:"II. Rhetorica y poesis"},
+  {id:"III",label:"III. Politica y sociedad"},
+  {id:"IV",label:"IV. Ciencia y naturaleza"},
+  {id:"V",label:"V. Mitologia y teologia"},
+  {id:"VI",label:"VI. Ethos y pathos"},
+  {id:"VII",label:"VII. Epistemologia"},
+  {id:"VIII",label:"VIII. Estetica"},
+  {id:"IX",label:"IX. Vida cotidiana"},
+  {id:"X",label:"X. Numeros y medidas"}
+];
+
+var ENTRIES = [
+
+{
+  "id": "technema",
+  "lemma": "τέχνημα technēma",
+  "lang": "greek",
+  "pos": "sustantivo 3a decl., neutro",
+  "themes": ["I", "II", "VIII"],
+  "level": "intermedio",
+  "featured": false,
+  "ipa": "tékʰ.nɛː.ma",
+  "defs": [
+    {
+      "text": "Artilugio, ingenio fabricado; obra de la destreza técnica que bordea la trampa.",
+      "audience": "basico"
+    },
+    {
+      "text": "En filosofía, el producto de la techne: no la habilidad misma sino su resultado materializado. Lo hecho con arte que puede devenir engaño o maravilla según quien lo sostenga.",
+      "audience": "intermedio"
+    },
+    {
+      "text": "Aristóteles distingue technema de ergon (ἔργον): el ergon es la función cumplida, el technema es el artefacto en tanto objeto con su propia legalidad interna. Platón lo usa con sospecha: el technema imita la naturaleza pero no la contiene. En Hesíodo, Pandora es el technema por excelencia: belleza sin intención moral, forma sin herida.",
+      "audience": "avanzado"
+    }
+  ],
+  "etym": {
+    "pie": "*teks-",
+    "gloss": "tejer, fabricar, construir con el hacha",
+    "path": [
+      { "stage": "PIE", "form": "*teks-", "note": "tejer, construir; raíz que une texto y tejido" },
+      { "stage": "Sánscrito", "form": "taksati", "note": "él construye, él fabrica" },
+      { "stage": "Griego", "form": "τέχνη (technē)", "note": "arte, destreza, habilidad" },
+      { "stage": "Griego", "form": "τεχνάζω (technazō)", "note": "actuar con ingenio, tramar" },
+      { "stage": "Griego", "form": "τέχνημα (technēma)", "note": "artilugio, obra de la técnica" },
+      { "stage": "Latín", "form": "texere / textum", "note": "tejer; texto como tejido de palabras" },
+      { "stage": "Español", "form": "técnica / texto / tejido", "note": "tres ramas de una misma raíz" }
+    ],
+    "notes": "La raíz PIE *teks- revela algo que la modernidad ha disuelto: tejer, construir y escribir son el mismo gesto. El texto es un tejido; la técnica es un tejido; el technema es el objeto tejido. En griego, τέκτων (tektōn) es el carpintero —el que construye con el hacha— y Jesús es llamado tektōn en el Evangelio de Marcos. La misma raíz da el alemán Dachs (tejón: 'el constructor'). El technema carga ese doble filo: es creación y es trampa, es habilidad y es engaño —de ahí que los dioses de Hesíodo creen a Pandora como un technema: una forma perfecta que oculta su contenido."
+  },
+  "evo": [
+    {
+      "step": "s1",
+      "from": "*teks-",
+      "to": "τέχνη",
+      "rule": "Palatalización y nominalización",
+      "exp": "La raíz verbal PIE *teks- se nominaliza en griego como τέχνη, desplazando el sentido de 'tejer' hacia 'habilidad que produce forma'."
+    },
+    {
+      "step": "s2",
+      "from": "τέχνη",
+      "to": "τέχνημα",
+      "rule": "Sufijo -μα (resultado de la acción)",
+      "exp": "El sufijo -μα convierte el proceso (techne) en su resultado material: el technema es lo que la techne deja tras de sí."
+    },
+    {
+      "step": "s3",
+      "from": "τέχνη → texere",
+      "to": "texto / tejido / técnica",
+      "rule": "Bifurcación greco-latina",
+      "exp": "El griego retiene el sentido de habilidad; el latín texere deriva hacia tejer y componer; ambos convergen en 'texto' como tejido de signos."
+    }
+  ],
+  "deriv": [
+    { "w": "técnica", "l": "es", "u": "la técnica como método" },
+    { "w": "tecnología", "l": "es", "u": "tecnología aplicada" },
+    { "w": "texto", "l": "es", "u": "tejido de signos" },
+    { "w": "tejido", "l": "es", "u": "tejido orgánico" },
+    { "w": "pirotécnico", "l": "es", "u": "efecto pirotécnico" },
+    { "w": "technology", "l": "en", "u": "information technology" },
+    { "w": "tectonique", "l": "fr", "u": "tectonique des plaques" },
+    { "w": "tecnica", "l": "it", "u": "tecnica narrativa" }
+  ],
+  "cogn": [
+    { "w": "taksati", "l": "san", "m": "él construye" },
+    { "w": "texere", "l": "la", "m": "tejer, componer" },
+    { "w": "tektōn", "l": "grc", "m": "carpintero, constructor" },
+    { "w": "Dachs", "l": "de", "m": "tejón: 'el que construye'" },
+    { "w": "texture", "l": "en", "m": "textura, tejido" }
+  ],
+  "example": {
+    "quote": "Τέχνημα δ᾽ οὐδὲν τοῦ θεοῦ σοφώτερον.",
+    "gloss": "No hay artilugio más sabio que el de un dios.",
+    "author": "Sófocles",
+    "work": "Antígona",
+    "year": "c. 441 a.C.",
+    "lang": "grc"
+  },
+  "cmp": {
+    "griego": "τέχνημα",
+    "es": "artilugio / técnica",
+    "it": "artificio / tecnica",
+    "fr": "artifice / technique",
+    "en": "contrivance / technique",
+    "de": "Kunstgriff / Technik"
+  },
+  "researchNotes": "El texto de #ReflejosHíbridos usa technema para nombrar lo que la IA produce: una forma sin herida, una poética sin biografía. Esa lectura activa la tensión aristotélica: el technema de la IA es ergon (función cumplida) pero no es praxis (acción que transforma al agente). La máquina fabrica technemas perfectos y permanece intacta. El humano que crea se transforma en el acto. Esa asimetría es la pregunta ontológica del proyecto.",
+  "relatedEntries": ["techne", "ergon", "poiesis", "mimesis", "emphytos_nomimotes"],
+  "famousPhrases": [
+    {
+      "phrase": "τέχνη μακρά, βίος βραχύς",
+      "translat": "Ars longa, vita brevis",
+      "gloss": "El arte es largo, la vida es breve.",
+      "author": "Hipócrates",
+      "note": "La forma latina (Séneca) es más conocida, pero la raíz es griega: la techne sobrevive al technema."
+    }
+  ],
+  "negativeTheologyTags": ["creación sin sujeto", "forma sin intención", "lo producido y lo increado"],
+  "sources": [
+    {
+      "type": "dictionary",
+      "title": "Liddell-Scott-Jones, Greek-English Lexicon",
+      "url": "https://logeion.uchicago.edu/τέχνημα",
+      "confidence": "high",
+      "used_for": ["lemma", "pos", "defs"]
+    },
+    {
+      "type": "etymology",
+      "title": "Etymonline: *teks-",
+      "url": "https://www.etymonline.com/word/*teks-",
+      "confidence": "high",
+      "used_for": ["pie", "path", "cogn"]
+    },
+    {
+      "type": "philosophy",
+      "title": "Stanford Encyclopedia of Philosophy: Episteme and Techne",
+      "url": "https://plato.stanford.edu/entries/episteme-techne/",
+      "confidence": "high",
+      "used_for": ["notes", "defs_avanzado"]
+    },
+    {
+      "type": "editorial",
+      "title": "#ReflejosHíbridos — sensus-semansis.html",
+      "confidence": "primary",
+      "used_for": ["researchNotes", "negativeTheologyTags"]
+    }
+  ],
+  "flags": {
+    "reviewed": false,
+    "aria_ready": false,
+    "bw_ready": false,
+    "semansis_version": true
+  }
+},
+{
+  id:"logos",
+  lemma:"\u03BB\u03CC\u03B3\u03BF\u03C2 (logos)",
+  lang:"greek",
+  pos:"sustantivo (2a decl., masc.)",
+  themes:["I","VII"],
+  level:"basico",
+  ipa:"/lo\u0301.\u0261os/",
+  defs:["Palabra, discurso, razon, principio organizador del universo.","En filosofia griega: principio racional que gobierna el cosmos; en el Evangelio de Juan: el Verbo o Palabra divina creadora."],
+  etym:{
+    pie:"*leg- (recolectar, elegir, hablar)",
+    path:["PIE *leg-","Griego \u03BB\u03AD\u03B3\u03C9 (lego, decir)","Griego \u03BB\u03CC\u03B3\u03BF\u03C2 (logos)","Prestamos: logica, logaritmo, logo, dialogo"],
+    notes:"Una de las palabras mas influyentes de la civilizacion occidental. Heracleito la uso para designar el principio racional del cosmos. Los estoicos la convirtieron en divina. Juan la adopto como Verbo encarnado. De ella derivan cientos de terminos: logica, dialogo, monologo, genealogia, ecologia, tecnologia, psicologia."
+  },
+  evo:[],
+  deriv:[{w:"logica",l:"es",u:"la logica deductiva"},{w:"dialogo",l:"es",u:"un dialogo socratico"},{w:"genealogia",l:"es",u:"la genealogia familiar"},{w:"ecologia",l:"es",u:"ecologia urbana"},{w:"technology",l:"en",u:"information technology"}],
+  cogn:[{w:"ratio",l:"la",m:"razon"},{w:"word",l:"en",m:"palabra (raiz diferente)"}],
+  example:"\u00AB\u1F18\u03BD \u1F00\u03C1\u03C7\u1FC7 \u1F6E\u03BD \u1F41 \u03BB\u03CC\u03B3\u03BF\u03C2.\u00BB \u2014 Juan 1:1",
+  cmp:{griego:"\u03BB\u03CC\u03B3\u03BF\u03C2",es:"logica",it:"logos",fr:"logos",en:"logic"}
+},
+
+{
+  id:"physis",
+  lemma:"\u03C6\u03CD\u03C3\u03B9\u03C2 (physis)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., fem.)",
+  themes:["I","IV"],
+  level:"intermedio",
+  ipa:"/p\u02B0y\u0301.sis/",
+  defs:["Naturaleza, constitucion innata de algo; el proceso de crecimiento y devenir.","Para los presocraticos: el principio material del que surge todo lo que existe."],
+  etym:{
+    pie:"*bhuh2- (crecer, nacer, ser)",
+    path:["PIE *bhuh2-","Griego \u03C6\u03CD\u03C9 (phyo, crecer)","Griego \u03C6\u03CD\u03C3\u03B9\u03C2 (physis)","Espanol: fisica, fisioterapia, metafisica"],
+    notes:"La misma raiz PIE da el latin futurus (futuro), el ingles be y el sanscrito bhavati. Physis no significa la naturaleza como algo estatico, sino como proceso activo de crecimiento y cambio. Aristoteles contrapuso physis (naturaleza) a techne (arte), y a nomos (ley/convencion)."
+  },
+  evo:[],
+  deriv:[{w:"fisica",l:"es",u:"las leyes de la fisica"},{w:"fisioterapia",l:"es",u:"sesion de fisioterapia"},{w:"metafisica",l:"es",u:"filosofia metafisica"},{w:"physique",l:"fr",u:"le corps humain"},{w:"physics",l:"en",u:"quantum physics"}],
+  cogn:[{w:"natura",l:"la",m:"naturaleza"},{w:"futurus",l:"la",m:"futuro (misma raiz)"}],
+  example:"\u00AB\u1F14\u03C3\u03C4\u03B9 \u03B3\u1F70\u03C1 \u03C6\u03CD\u03C3\u03B9\u03C2 \u03BF\u1F50\u03BA \u1F14\u03C3\u03C4\u03B9 \u03BF\u1F50.\u00BB \u2014 Proverbio griego",
+  cmp:{griego:"\u03C6\u03CD\u03C3\u03B9\u03C2",es:"fisica",it:"fisica",fr:"physique",en:"physics"}
+},
+
+{
+  id:"arche",
+  lemma:"\u1F00\u03C1\u03C7\u1F74 (arche)",
+  lang:"greek",
+  pos:"sustantivo (1a decl., fem.)",
+  themes:["I","IV","VII"],
+  level:"basico",
+  ipa:"/\u00E0r.k\u02B0e\u0301/",
+  defs:["Principio, origen, fundamento; punto de partida de toda realidad.","Poder, autoridad, mando; primer principio causal (Tales, Anaximandro)."],
+  etym:{
+    pie:"*h2erk- (comienzo, primer lugar, poder)",
+    path:["PIE *h2erk-","Griego \u1F00\u03C1\u03C7\u03C9 (archo, comenzar/gobernar)","Griego \u1F00\u03C1\u03C7\u1F74 (arche)","Prestamos: arquitectura, anarquia, jerarquia, arqueologia"],
+    notes:"Concepto central de la filosofia presocratica. Tales busco el arche del cosmos en el agua; Anaximandro en el apeiron; Anaximenes en el aire. Aristoteles sistematizo la busqueda del arche como busqueda de causas primeras. En politica, arche evoluciono de principio a poder soberano."
+  },
+  evo:[],
+  deriv:[{w:"arquitectura",l:"es",u:"arquitectura moderna"},{w:"anarquia",l:"es",u:"anarquia politica"},{w:"arqueologia",l:"es",u:"arqueologia egipcia"},{w:"hierarchie",l:"fr",u:"la hierarchie sociale"},{w:"archaic",l:"en",u:"archaic period"}],
+  cogn:[{w:"principium",l:"la",m:"principio"},{w:"regere",l:"la",m:"gobernar (misma raiz)"}],
+  example:"\u00AB\u1F00\u03C1\u03C7\u1F74 \u03C0\u03AC\u03BD\u03C4\u03C9\u03BD \u1F51\u03C0\u03BF\u03BA\u03B5\u03AF\u03BC\u03B5\u03BD\u03B1.\u00BB \u2014 Aristoteles, Metafisica",
+  cmp:{griego:"\u1F00\u03C1\u03C7\u1F74",es:"arquitectura",it:"architettura",fr:"arche",en:"archaic"}
+},
+
+{
+  id:"aletheia",
+  lemma:"\u1F00\u03BB\u03AE\u03B8\u03B5\u03B9\u03B1 (aletheia)",
+  lang:"greek",
+  pos:"sustantivo (1a decl., fem.)",
+  themes:["I","VII"],
+  level:"intermedio",
+  ipa:"/\u00E0.lee\u0301.\u03B8e.a/",
+  defs:["Verdad, desvelamiento, descubrimiento; lo que no esta oculto.","En Heidegger: el desocultamiento del ser; la verdad como proceso, no como estado."],
+  etym:{
+    pie:"*leh2- (cuidar, observar) o prefijo a-privativo + leth- (olvido)",
+    path:["PIE *leh2- / *sleh2-","Griego \u03BB\u03AE\u03B8\u03B7 (lethe, olvido)","Griego \u1F00\u03BB\u03AE\u03B8\u03B5\u03B9\u03B1 (aletheia: a-privativo + lethe)","Latin veritas (traduccion, no cognado)","Prestamos: lealtad (via latin)"],
+    notes:"Una de las palabras mas debatidas de la filosofia. La etimologia tradicional la descompone como a-privativo + lethe (olvido): lo que no se olvida, lo desvelado. Heidegger recupero esta lectura para su concepto de verdad como desocultamiento (Unverborgenheit). No es coincidencia con el latin veritas, que viene de otra raiz (*wer-, confianza)."
+  },
+  evo:[],
+  deriv:[{w:"verdad",l:"es",u:"la verdad absoluta"},{w:"lealtad",l:"es",u:"lealtad inquebrantable"},{w:"verite",l:"fr",u:"la verite nue"},{w:"verita",l:"it",u:"una verita scomoda"}],
+  cogn:[{w:"veritas",l:"la",m:"verdad (diferente raiz)"},{w:"lethe",l:"grc",m:"olvido, rio del infierno"}],
+  example:"\u00AB\u1F41\u03B4\u1F78\u03BD \u1F04\u03BD\u03B8\u03C1\u03C9\u03C0\u03BF\u03B9 \u03C6\u03B9\u03BB\u03BF\u03C3\u03BF\u03C6\u1F77 \u1F00\u03C0\u03BF\u03C6\u03B1\u03AF\u03BD\u03BF\u03C5\u03C3\u03B9 \u03C4\u1F74\u03BD \u1F00\u03BB\u03AE\u03B8\u03B5\u03B9\u03B1\u03BD.\u00BB \u2014 Aristoteles, Metafisica",
+  cmp:{griego:"\u1F00\u03BB\u03AE\u03B8\u03B5\u03B9\u03B1",es:"verdad",it:"verita",fr:"verite",en:"truth"}
+},
+
+{
+  id:"aether",
+  lemma:"\u03B1\u1FB0\u03B8\u1F74\u03C1 (aither)",
+  lang:"greek",
+  pos:"sustantivo (1a decl., masc.)",
+  themes:["IV","V"],
+  level:"avanzado",
+  ipa:"/\u00E0i\u0301.t\u02B0er/",
+  defs:["El cielo superior, la region por encima de la luna; el quinto elemento.","En fisica antigua: la sustancia pura e incorruptible de la que estan hechos los astros."],
+  etym:{
+    pie:"*h2eyther- (quemar, brillar, cielo ardiente)",
+    path:["PIE *h2eyther-","Griego \u03B1\u1F30\u03B8\u1F74\u03C1 (aither, cielo brillante)","Latin aether (prestamo)","Espanol: etero, etereo, eternidad (etimologia popular)"],
+    notes:"Aristoteles anadio el eter como quinto elemento (quintaesencia) a los cuatro de Empedocles (tierra, agua, aire, fuego). El eter era el elemento de los cielos, incorruptible y eterno, en contraste con los cuatro elementos sublunares sujetos a cambio y corrupcion. Newton lo recupero en optica; la fisica lo refuto con el experimento Michelson-Morley (1887)."
+  },
+  evo:[],
+  deriv:[{w:"etereo",l:"es",u:"una figura eterea"},{w:"eter",l:"es",u:"el eter luminifero"},{w:"ether",l:"en",u:"ethernet cable"},{w:"ethereal",l:"en",u:"ethereal beauty"},{w:"etero",l:"es",u:"heterogeneo"}],
+  cogn:[{w:"aether",l:"la",m:"eter"},{w:"akasha",l:"san",m:"espacio, eter (posible cognado)"}],
+  example:"\u00AB\u0391\u1F30\u03B8\u1F74\u03C1 \u03B4\u1FBD \u1F10\u03C3\u03C4\u1F76 \u03B8\u03B5\u1F7B\u03BD \u1F10\u03C3\u03C7\u03AC\u03C4\u03C9\u03BD \u1F00\u03B8\u03B1\u03BD\u03AC\u03C4\u03C9\u03BD \u03C4\u03B5\u03BB\u03B5\u03C5\u03C4\u03B1\u03AF \u1F10\u03C3\u03C4\u03B9.\u00BB \u2014 Aristoteles, De Caelo",
+  cmp:{griego:"\u03B1\u1F30\u03B8\u1F74\u03C1",es:"eter",it:"etere",fr:"ether",en:"aether"}
+},
+
+{
+  id:"kosmos",
+  lemma:"\u03BA\u03CC\u03C3\u03BC\u03BF\u03C2 (kosmos)",
+  lang:"greek",
+  pos:"sustantivo (2a decl., masc.)",
+  themes:["IV","V","III"],
+  level:"basico",
+  ipa:"/k\u00F3s.mos/",
+  defs:["Orden, universo, armonia; el mundo ordenado como sistema.","Adorno, ornamento; orden opuesto al caos."],
+  etym:{
+    pie:"*keh2s- (orden, estructura,Dispose)",
+    path:["PIE *keh2s-","Griego \u03BA\u03CC\u03C3\u03BC\u03BF\u03C2 (kosmos)","Pit.agoras: kosmos = orden universal","Latin mundus (traduccion)","Espanol: cosmos, cosmico, cosmologia"],
+    notes:"Originalmente kosmos significaba orden u ornamento (de ahi nuestro cosmetico). Pitagoras fue el primero en usarlo para el universo ordenado, en contraposicion al caos. Los pitagoricos descubrieron que el kosmos tiene estructura matematica, una idea que sigue vigente en la fisica moderna. Cosmos y caos son opuestos etimologicos."
+  },
+  evo:[],
+  deriv:[{w:"cosmos",l:"es",u:"el cosmos infinito"},{w:"cosmologia",l:"es",u:"cosmologia cuantica"},{w:"cosmetico",l:"es",u:"productos cosmeticos"},{w:"cosmopolitan",l:"en",m:"ciudadano del mundo"},{w:"cosmopolite",l:"fr",u:"un cosmopolite"}],
+  cogn:[{w:"mundus",l:"la",m:"mundo, orden"},{w:"chaos",l:"grc",m:"caos (opuesto)"}],
+  example:"\u00AB\u039F\u1F50\u03BA \u1F10\u03C3\u03C4\u1F76 \u1F00\u03C1\u03C7\u1F70\u03C2 \u1F13\u03BD\u03B9\u03BF\u03BD \u1F10\u03C3\u03C4\u1F76 \u03C4\u1F71\u03BE\u03B9\u03C2 \u03BA\u03B1\u1F76 \u1F41 \u1F00\u03BD\u03AC\u03C0\u03B1\u03C5\u03C3\u03B9\u03C2 \u03BA\u03CC\u03C3\u03BC\u03BF\u03C2.\u00BB \u2014 Empedocles",
+  cmp:{griego:"\u03BA\u03CC\u03C3\u03BC\u03BF\u03C2",es:"cosmos",it:"cosmo",fr:"cosmos",en:"cosmos"}
+},
+
+{
+  id:"nous",
+  lemma:"\u03BD\u03BF\u1EFE\u03C2 (nous)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., masc.)",
+  themes:["I","VII"],
+  level:"intermedio",
+  ipa:"/nu\u0301s/",
+  defs:["Mente, intelecto, razon; la facultad suprema del conocimiento.","En Anaxagoras: la mente que ordena el cosmos; en Aristoteles: el pensamiento del pensamiento."],
+  etym:{
+    pie:"*h2neh3- (percibir, comprender)",
+    path:["PIE *h2neh3-","Griego \u03BD\u03BF\u03AD\u03C9 (noeo, percibir)","Griego \u03BD\u03BF\u1EFE\u03C2 (nous, mente)","Latin mens, intellectus (traducciones)","Espanol: noesis, gnosis (raiz emparentada)"],
+    notes:"Para Anaxagoras, el nous era una sustancia infinita, autosuficiente y omnisciente que puso en movimiento el cosmos y lo ordena. Aristoteles lo convirtio en Dios: el pensamiento puro que piensa a si mismo (noesis noeseos). Plotino lo identifico con el Intelecto divino, la segunda hipostasis de su sistema. El nous esta en la raiz de toda la tradicion intelectual occidental."
+  },
+  evo:[],
+  deriv:[{w:"noesis",l:"es",u:"conocimiento intuitivo"},{w:"paranoia",l:"es",u:"delirios paranoicos"},{w:"gnosis",l:"es",u:"conocimiento espiritual"},{w:"noetic",l:"en",u:"noetic sciences"},{w:"gnostique",l:"fr",u:"les gnostiques"}],
+  cogn:[{w:"mens",l:"la",m:"mente"},{w:"know",l:"en",m:"saber (posible cognado)"}],
+  example:"\u00AB\u1F39\u03BD\u03B1 \u1F10\u03BA\u03B5\u1F76\u03BD\u03BF \u1F10\u03BE\u1F77\u03B7\u03BD \u1F51\u03C0\u03AE\u03C1\u03C7\u03B5\u03C4\u03B1\u03B9 \u1F01\u03C0\u03AC\u03BD\u03C4\u03C9\u03BD \u03BA\u03B1\u1F76 \u1F00\u03C1\u03B9\u03B8\u03BC\u1F78\u03BD \u03BA\u03B1\u1F76 \u03B4\u03B9\u03B1\u03BA\u03CC\u03C3\u03BC\u03B7\u03BD.\u00BB \u2014 Anaxagoras",
+  cmp:{griego:"\u03BD\u03BF\u1EFE\u03C2",es:"intelecto",it:"mente",fr:"esprit",en:"mind"}
+},
+
+{
+  id:"eudaimonia",
+  lemma:"\u03B5\u1F50\u03B4\u03B1\u03B9\u03BC\u03BF\u03BD\u03AF\u03B1 (eudaimonia)",
+  lang:"greek",
+  pos:"sustantivo (1a decl., fem.)",
+  themes:["I","VI"],
+  level:"intermedio",
+  ipa:"/eu.dai.mo.\u02C8ni.a/",
+  defs:["Felicidad, florecimiento humano, vida lograda y plena.","Para Aristoteles: el fin supremo de la vida humana, alcanzado mediante el ejercicio de la virtud."],
+  etym:{
+    pie:"*dheh1- (poner, colocar) + *daimon (divinidad)",
+    path:["PIE *dheh1-","Griego \u03B4\u03B1\u1F77\u03BC\u03C9\u03BD (daimon, divinidad tutelar)","Griego \u03B5\u1F50- (eu- = bien) + \u03B4\u03B1\u03B9\u03BC\u03BF\u03BD\u03AF\u03B1","Latin felicitas (traduccion)","Espanol: eudaimonia (prestamo culto), felicidad"],
+    notes:"Eudaimonia no es simplemente placer o alegria. Es el florecimiento integral del ser humano, la vida vivida conforme a la razon y la virtud. Aristoteles la define en la Etica a Nicomaco como actividad del alma conforme a la virtud perfecta. Los estoicos la identifican con la vida segun naturaleza. Etimologicamente, una persona eudaimon es aquella a la que le acompaña un buen daimon."
+  },
+  evo:[],
+  deriv:[{w:"eudaimonia",l:"es",u:"la busqueda de la eudaimonia"},{w:"feliz",l:"es",u:"un dia feliz"},{w:"felicite",l:"fr",u:"le bonheur et la felicite"},{w:"eudaimonia",l:"en",u:"eudaimonic well-being"},{w:"felice",l:"it",u:"essere felice"}],
+  cogn:[{w:"felicitas",l:"la",m:"felicidad"},{w:"daimon",l:"grc",m:"divinidad, genio"}],
+  example:"\u00AB\u03A4\u1F76 \u1F00\u03C1\u03B5\u03C4\u1F70\u03B9 \u1F04\u03C1\u03B9\u03C3\u03C4\u03BF\u03BD \u03C4\u03BF\u1F77\u03C2 \u1F10\u03BD \u1F40\u03C1\u03B9\u03C3\u03C4\u1F77\u1FBF \u03C0\u03C1\u1F70\u03B3\u03BC\u03B1\u03C4\u03B9 \u03B5\u1F50\u03B4\u03B1\u03B9\u03BC\u03BF\u03BD\u03AF\u03B1.\u00BB \u2014 Aristoteles, Etica a Nicomaco",
+  cmp:{griego:"\u03B5\u1F50\u03B4\u03B1\u03B9\u03BC\u03BF\u03BD\u03AF\u03B1",es:"felicidad",it:"felicita",fr:"bonheur",en:"happiness"}
+},
+
+{
+  id:"arete",
+  lemma:"\u1F00\u03C1\u03B5\u03C4\u1F74 (arete)",
+  lang:"greek",
+  pos:"sustantivo (1a decl., fem.)",
+  themes:["I","VI"],
+  level:"basico",
+  ipa:"/\u00E0.re\u0301.te\u0301/",
+  defs:["Excelencia, virtud, la culminacion de las capacidades propias.","En Homero: valor guerrero; en filosofia: perfeccion moral e intelectual."],
+  etym:{
+    pie:"*h2er- (conectar, ajustar, ser apto)",
+    path:["PIE *h2er-","Griego \u1F00\u03C1\u03B9\u03C3\u03C4\u03AC\u03C9 (aristaos, el mejor)","Griego \u1F00\u03C1\u03B5\u03C4\u1F74 (arete, excelencia)","Latin virtus (traduccion, no cognado)","Prestamos: aristocracia"],
+    notes:"Arete es la excelencia en cualquier ambito: la del atleta, la del artesano, la del guerrero, la del filosofo. En Homero, arete es ante todo valor en combate. Los sofistas la extendieron a la arete civica (competencia politica). Socrates y Platon la reinterpretaron como conocimiento moral: quien conoce el bien, lo practica. Aristoteles la situa en el termino medio entre el exceso y el defecto."
+  },
+  evo:[],
+  deriv:[{w:"aristocracia",l:"es",u:"gobierno aristocratico"},{w:"virtud",l:"es",u:"virtud cardenal"},{w:"aristocrate",l:"fr",u:"l'aristocrate"},{w:"aristocracy",l:"en",u:"natural aristocracy"}],
+  cogn:[{w:"virtus",l:"la",m:"virtud, hombr a"},{w:"aristoi",l:"grc",m:"los mejores"}],
+  example:"\u00AB\u0389\u03B8\u03B5 \u03B3\u03B1\u03C1 \u1F65\u03BD\u03B5\u03BA\u03B1 \u03C4\u1F76\u03BD \u1F00\u03C1\u03B5\u03C4\u1F74\u03BD.\u00BB \u2014 Homero, Iliada",
+  cmp:{griego:"\u1F00\u03C1\u03B5\u03C4\u1F74",es:"virtud",it:"virtu",fr:"vertu",en:"virtue"}
+},
+
+{
+  id:"paideia",
+  lemma:"\u03C0\u03B1\u03B9\u03B4\u03B5\u03AF\u03B1 (paideia)",
+  lang:"greek",
+  pos:"sustantivo (1a decl., fem.)",
+  themes:["I","III","VI"],
+  level:"intermedio",
+  ipa:"/pai.\u02C8de\u0301.a/",
+  defs:["Educacion, formacion cultural integral; el proceso de humanizacion.","En la antigua Grecia: la formacion del ciudadano libre en todas sus dimensiones."],
+  etym:{
+    pie:"*ped- (nio) + *deh2- (actuar)",
+    path:["PIE *ped- (nio)","Griego \u03C0\u03B1\u1FBF\u03C2 (pais, nio)","Griego \u03C0\u03B1\u03B9\u03B4\u03B5\u03AF\u03B1 (paideia, educacion del nio)","Latin educatio (traduccion)","Espanol: pedagogia, pediatria (raiz ped-)"],
+    notes:"Paideia no es simplemente instruccion academica. Es la formacion integral del ser humano como ciudadano libre y moral. Werner Jaeger la llamo el ideal de la cultura griega. Incluye gimnasia, musica, poesia, retorica y filosofia. Para los griegos, un hombre sin paideia era un barbaro. La palabra sigue viva en enciclopedia (enkyklios paideia: educacion circular) y pedagogia."
+  },
+  evo:[],
+  deriv:[{w:"pedagogia",l:"es",u:"pedagogia moderna"},{w:"enciclopedia",l:"es",u:"una enciclopedia completa"},{w:"pediatria",l:"es",u:"pediatria infantil"},{w:"pedagogy",l:"en",u:"critical pedagogy"},{w:"pedagogie",l:"fr",u:"pedagogie nouvelle"}],
+  cogn:[{w:"educatio",l:"la",m:"educacion"},{w:"pais",l:"grc",m:"nio"}],
+  example:"\u00AB\u03A0\u03B1\u03B9\u03B4\u03B5\u03AF\u03B1 \u1F90\u03BD\u03B5\u03C3\u03C4\u03B9 \u1F28\u03BB\u03BB\u03B7\u03BD\u03B9\u03BA\u03BF\u1F76\u03C2 \u03B3\u1F7F\u03BD\u03B1\u03B9 \u03C0\u1F72\u03BD\u03C4\u03C9\u03BD \u03BA\u03B1\u1F76 \u03C0\u03BF\u03BB\u03B9\u03C4\u1F77\u03C9\u03BD.\u00BB \u2014 Werner Jaeger (parafraesis)",
+  cmp:{griego:"\u03C0\u03B1\u03B9\u03B4\u03B5\u03AF\u03B1",es:"educacion",it:"educazione",fr:"education",en:"education"}
+},
+
+{
+  id:"agon",
+  lemma:"\u1F00\u03B3\u1F7D\u03BD (agon)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., masc.)",
+  themes:["II","III","VI"],
+  level:"basico",
+  ipa:"/\u00E0.\u0261o\u0301n/",
+  defs:["Competicion, lucha, debate; la confrontacion agonistica.","Asamblea, reunion; en el teatro: el conflicto central de la obra."],
+  etym:{
+    pie:"*h2eg- (conducir, mover, competir)",
+    path:["PIE *h2eg-","Griego \u1F04\u03B3\u03C9 (ago, conducir)","Griego \u1F00\u03B3\u1F7D\u03BD (agon, combate)","Prestamos: agonismo, antagonismo, agonista, protagonista"],
+    notes:"El agon era fundamental en la cultura griega. Las Olimpiadas eran agones. El teatro tragico se estructura en agon (el debate entre personajes). La democracia ateniense era esencialmente agonistica: ciudadanos que competian por persuadir a la asamblea. Nietzsche recupero el agon como principio creativo en El nacimiento de la tragedia."
+  },
+  evo:[],
+  deriv:[{w:"agonia",l:"es",u:"una agonia deportiva"},{w:"antagonismo",l:"es",u:"el antagonismo politico"},{w:"protagonista",l:"es",u:"el protagonista de la obra"},{w:"agony",l:"en",u:"in agony"},{w:"agoniste",l:"fr",u:"l'agoniste principal"}],
+  cogn:[{w:"actus",l:"la",m:"accion (diferente raiz)"},{w:"drive",l:"en",m:"impulso (posible cognado)"}],
+  example:"\u00AB\u0389 \u1F14\u03C1\u03B9\u03C2 \u1F00\u03B3\u1F7D\u03BD \u1F10\u03C3\u03C4\u1F76 \u03C0\u1F70\u03BD\u03C4\u03C9\u03BD \u03BA\u1F74\u03BB\u03BB\u03C5\u03C3\u03B9\u03BD.\u00BB \u2014 Pindaro",
+  cmp:{griego:"\u1F00\u03B3\u1F7D\u03BD",es:"agonia",it:"agonia",fr:"agonie",en:"agony"}
+},
+
+{
+  id:"mimesis",
+  lemma:"\u03BC\u03AF\u03BC\u03B7\u03C3\u03B9\u03C2 (mimesis)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., fem.)",
+  themes:["II","VIII"],
+  level:"intermedio",
+  ipa:"/mi\u0301.me\u0301.sis/",
+  defs:["Imitacion, representacion, re-creacion de la realidad mediante el arte.","En Aristoteles: la capacidad humana natural de representar y comprender mediante la imitacion."],
+  etym:{
+    pie:"*mey- (imitar, parecerse a)",
+    path:["PIE *mey-","Griego \u03BC\u1FE6\u03BC\u03BF\u03C2 (mimos, imitador)","Griego \u03BC\u03AF\u03BC\u03B7\u03C3\u03B9\u03C2 (mimesis, imitacion)","Prestamos: mimo, mimo, mimetismo"],
+    notes:"Aristoteles dedica gran parte de la Poetica a la mimesis. No la entiende como copia servil, sino como re-creacion creativa de la realidad. El arte mimetico es para Aristoteles una actividad natural y placentera del ser humano. Platn, en cambio, desconfia de la mimesis en la Republica: el arte imita la imitacion, alejandonos de la Verdad. Este debate (Platon vs. Aristoteles) define toda la estetica occidental."
+  },
+  evo:[],
+  deriv:[{w:"mimo",l:"es",u:"el mimo callejero"},{w:"mimetismo",l:"es",u:"mimetismo biologico"},{w:"mimesis",l:"en",u:"cultural mimesis"},{w:"mime",l:"fr",u:"le mime invisible"},{w:"mimica",l:"it",u:"la mimica facciale"}],
+  cogn:[{w:"imitatio",l:"la",m:"imitacion"},{w:"mime",l:"en",m:"mimo"}],
+  example:"\u00AB\u039F\u1F50\u03B4\u03B5\u03BD \u1F10\u03C3\u03C4\u1F76 \u03C6\u03CD\u03C3\u03B5\u03C9\u03C2 \u03BC\u03B9\u03BC\u1F74\u03C3\u03B8\u03B1\u03B9 \u03C4\u1F70 \u1F10\u03C1\u03B3\u03B1 \u03BA\u03B1\u1F76 \u03C7\u03B1\u03B9\u03C1\u03B5\u03C3\u1F76 \u1F04\u03C0\u03BF\u03B9 \u1F00\u03BD\u03B1\u03C0\u03BB\u03B1\u03C3\u03C4\u03BF\u1F77\u03BD\u03C4\u03B1\u03B9.\u00BB \u2014 Aristoteles, Poetica",
+  cmp:{griego:"\u03BC\u03AF\u03BC\u03B7\u03C3\u03B9\u03C2",es:"imitacion",it:"imitazione",fr:"imitation",en:"imitation"}
+},
+
+{
+  id:"catharsis",
+  lemma:"\u03BA\u03AC\u03B8\u03B1\u03C1\u03C3\u03B9\u03C2 (katharsis)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., fem.)",
+  themes:["II","VIII"],
+  level:"intermedio",
+  ipa:"/k\u00E1.\u03B8ar.sis/",
+  defs:["Purga emocional, purificacion; liberacion de las pasiones mediante el arte.","En la tragedia aristotelica: el efecto de piedad y temor que produce la representacion teatral."],
+  etym:{
+    pie:"*keh2- (puro, limpio)",
+    path:["PIE *keh2-","Griego \u03BA\u03B1\u03B8\u03B1\u03AF\u03C1\u03C9 (kathairo, purificar)","Griego \u03BA\u03AC\u03B8\u03B1\u03C1\u03C3\u03B9\u03C2 (katharsis, purificacion)","Prestamos: catarsis, catartico"],
+    notes:"Aristoteles usa catharsis en la Poetica sin definirla explicitamente, lo que ha generado siglos de debate. La interpretacion dominante es que la tragedia produce purga de emociones: al experimentar piedad y temor por el heroe tragic, el espectador se libera de esas emociones. Freud y Brecht le dieron nuevas lecturas. El termino se ha extendido a la psicologia y el psicoanalisis como proceso de liberacion emocional."
+  },
+  evo:[],
+  deriv:[{w:"catarsis",l:"es",u:"la catarsis del cine"},{w:"catartico",l:"es",u:"un efecto catartico"},{w:"catharsis",l:"en",u:"emotional catharsis"},{w:"catharsis",l:"fr",u:"la catharsis tragique"}],
+  cogn:[{w:"catharticum",l:"la",m:"purgante"},{w:"katharos",l:"grc",m:"puro, limpio"}],
+  example:"\u00AB\u0394\u03B9\u1F70 \u1F51\u03C0\u03CC \u03B5\u1FBC\u03AD\u03BF\u03C5 \u03BA\u03B1\u1F76 \u03C6\u03CC\u03B2\u03BF\u03C5 \u03C0\u03C1\u03AC\u03B3\u03BC\u03B1\u03C4\u03BF\u03C2 \u1F10\u03BA\u03AC\u03C3\u03C4\u03BF\u03C5 \u03C0\u03B1\u03B8\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 \u03BA\u03B1\u03B8\u03AC\u03C1\u03C3\u03B9\u03BD.\u00BB \u2014 Aristoteles, Poetica",
+  cmp:{griego:"\u03BA\u03AC\u03B8\u03B1\u03C1\u03C3\u03B9\u03C2",es:"catarsis",it:"catarsi",fr:"catharsis",en:"catharsis"}
+},
+
+{
+  id:"moira",
+  lemma:"\u03BC\u03BF\u1FE6\u03C1\u03B1 (moira)",
+  lang:"greek",
+  pos:"sustantivo (1a decl., fem.)",
+  themes:["V"],
+  level:"avanzado",
+  ipa:"/mo\u0301i.ra/",
+  defs:["Parte, porcion, lote; destino, hado, la parte que toca a cada ser.","Las Moiras: las tres diosas del destino que hilan, miden y cortan el hilo de la vida."],
+  etym:{
+    pie:"*mer- (dividir, repartir, asignar)",
+    path:["PIE *mer-","Griego \u03BC\u03AD\u03C1\u03BF\u03C2 (meros, parte)","Griego \u03BC\u03BF\u1FE6\u03C1\u03B1 (moira, porcion asignada)","Latin pars, fortuna (traducciones)","Prestamos: moria (condicion idiota, uso diferente)"],
+    notes:"Moira es la porcion que a cada uno le toca: su destino ineludible. En Homero, ni Zeus puede alterar la moira de un mortal. Las Moiras (Cloto, Laquesis, Atropos) personifican este destino. Moira esta en la raiz de la tragedia griega: el heroe lucha contra su moira y precisamente esa lucha lo define. El concepto hebraico de destino (mazzal) y el latino de fortuna son paralelos culturales."
+  },
+  evo:[],
+  deriv:[{w:"destino",l:"es",u:"el destino fatal"},{w:"hado",l:"es",u:"los hados contrarios"},{w:"moira",l:"en",u:"the moira of fate"},{w:"part,lot",l:"en",m:"parte, suerte"}],
+  cogn:[{w:"pars",l:"la",m:"parte"},{w:"meros",l:"grc",m:"parte"},{w:"mors",l:"la",m:"muerte (posible cognado)"}],
+  example:"\u00AB\u039F\u1F5D\u03B4\u03B5 \u03BC\u03BF\u1FE6\u03C1\u03B1 \u03C4\u03B1\u03C7\u03C1\u03BD\u03B5\u03AF \u03B4\u03B1\u03B5\u1F76\u03BD \u03BA\u1F00\u03BA\u1F70 \u03BA\u03B1\u1F76 \u1F41\u03BC\u03BF\u1F77 \u03C4\u03B5\u03BB\u03B5\u03C5\u03C4\u03B1\u1F77.\u00BB \u2014 Esquilo, Agamennon",
+  cmp:{griego:"\u03BC\u03BF\u1FE6\u03C1\u03B1",es:"destino",it:"destino",fr:"destin",en:"fate"}
+},
+
+{
+  id:"eros",
+  lemma:"\u1F14\u03C1\u03C9\u03C2 (eros)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., masc.)",
+  themes:["V","VI"],
+  level:"basico",
+  ipa:"/\u1F14\u03C1os/",
+  defs:["Amor, deseo apasionado, atraccion; la fuerza que impulsa hacia lo bello y lo bueno.","En la filosofia de Platon: el deseo ascendente hacia la Belleza suprema (Banquete)."],
+  etym:{
+    pie:"*h2er- (desear, anhelar)",
+    path:["PIE *h2er-","Griego \u1F14\u03C1\u03C9\u03C2 (eros, deseo amoroso)","Latin amor (traduccion, no cognado)","Prestamos: erotismo, erotico, erudito (v\u00eda diferente)"],
+    notes:"En la mitologia, Eros era una fuerza cosmica primordial que aparecio junto con Caos y Gea. Platon lo transformo filosoficamente en el Banquete: el amor como ascenso desde el deseo por un cuerpo bello hasta la contemplacion de la Belleza en si. Los romanos lo identificaron con Cupido. Freud retomo Eros como la pulsi\u00f3n de vida, opuesta a Thanatos (la pulsi\u00f3n de muerte)."
+  },
+  evo:[],
+  deriv:[{w:"erotismo",l:"es",u:"el erotismo en el arte"},{w:"erotico",l:"es",u:"literatura erotica"},{w:"erotic",l:"en",u:"erotic art"},{w:"erotisme",l:"fr",u:"l'erotisme"},{w:"erotico",l:"it",u:"film erotico"}],
+  cogn:[{w:"amor",l:"la",m:"amor (diferente raiz)"},{w:"desire",l:"en",m:"deseo (diferente raiz)"}],
+  example:"\u00AB\u1F14\u03C1\u03C9\u03C2 \u1F10\u03C3\u03C4\u1F76\u03BD \u03C0\u03B1\u03BB\u03B1\u03B9\u1F78\u03BD \u1F40\u03BD\u03B8\u03C1\u03CE\u03C0\u03C9\u03BD \u03B4\u03B1\u1F76\u03BC\u03BF\u03BD, \u03BA\u03B1\u03BB\u1F78\u03BD \u03C4\u03B5 \u03C4\u03AD\u03BB\u03B5\u03B9.\u00BB \u2014 Platon, Banquete",
+  cmp:{griego:"\u1F14\u03C1\u03C9\u03C2",es:"amor",it:"amore",fr:"amour",en:"love"}
+},
+
+{
+  id:"demos",
+  lemma:"\u03B4\u1FE6\u03BC\u03BF\u03C2 (demos)",
+  lang:"greek",
+  pos:"sustantivo (2a decl., masc.)",
+  themes:["III"],
+  level:"basico",
+  ipa:"/de\u0301.mos/",
+  defs:["Pueblo, colectividad; el cuerpo de ciudadanos con derechos politicos.","En Atenas: los ciudadanos comunes, opuestos a la aristocracia."],
+  etym:{
+    pie:"*dheh1- (poner, distribuir, pueblo)",
+    path:["PIE *dheh1-","Griego \u03B4\u03AD\u03BC\u03BF\u03BC\u03B1\u03B9 (demomai, dividir)","Griego \u03B4\u1FE6\u03BC\u03BF\u03C2 (demos, pueblo)","Prestamos: democracia, demografia, demagogo, epidemia"],
+    notes:"Demos es la raiz de democracia (kratos del demos: poder del pueblo). En la Atenas clasica, el demos era el conjunto de ciudadanos varones libres con derechos plenos. Tucidides muestra como la retorica del demos (la asamblea) puede ser manipulada por demagogos. La palabra demagogo originalmente no era peyorativa: era quien guiaba al pueblo."
+  },
+  evo:[],
+  deriv:[{w:"democracia",l:"es",u:"democracia participativa"},{w:"demografia",l:"es",u:"demografia mundial"},{w:"epidemia",l:"es",u:"la epidemia global"},{w:"demagogue",l:"en",u:"a populist demagogue"},{w:"democratie",l:"fr",u:"la democratie"}],
+  cogn:[{w:"populus",l:"la",m:"pueblo"},{w:"folk",l:"en",m:"pueblo (diferente raiz)"}],
+  example:"\u00AB\u038F \u1F10\u03C0\u03B9\u03C3\u03C4\u1F70\u03C4\u03B7\u03C2 \u1F10\u03BA \u03C4\u1F77\u03BD \u03B4\u1FE6\u03BC\u03BF\u03BD \u1F10\u03C3\u03C4\u1F76\u03BD.\u00BB \u2014 Herodoto, Historias",
+  cmp:{griego:"\u03B4\u1FE6\u03BC\u03BF\u03C2",es:"pueblo",it:"popolo",fr:"peuple",en:"people"}
+}
+,
+{
+  id:"polis",
+  lemma:"\u03C0\u03CC\u03BB\u03B9\u03C2 (polis)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., fem.)",
+  themes:["III"],
+  level:"basico",
+  ipa:"/p\u00F3.lis/",
+  defs:["Ciudad-estado; la comunidad politica organizada de ciudadanos.","La unidad basica de la civilizacion griega, con autonomia juridica y politica."],
+  etym:{
+    pie:"*pelh2- (ciudadela, fortificacion)",
+    path:["PIE *pelh2-","Griego \u03C0\u03CC\u03BB\u03B9\u03C2 (polis, ciudad)","Griego \u03C0\u03BF\u03BB\u03AF\u03C4\u03B7\u03C2 (polites, ciudadano)","Prestamos: politica, politeismo, metropoli, acropolis"],
+    notes:"La polis no era solo un espacio fisico sino una comunidad de ciudadanos con leyes propias. Atenas, Esparta, Corinto, Tebas eran poleis. La palabra politica deriva directamente de polis: los asuntos de la ciudad. El adjetivo politico significa literalmente lo concerniente a la polis. Aristoteles abre su Politica con: el hombre es un animal politico (zoon politikon)."
+  },
+  evo:[],
+  deriv:[{w:"politica",l:"es",u:"politica internacional"},{w:"metropoli",l:"es",u:"la metropoli moderna"},{w:"acropolis",l:"es",u:"la acropolis de Atenas"},{w:"politics",l:"en",u:"identity politics"},{w:"politique",l:"fr",u:"la politique etrangere"}],
+  cogn:[{w:"civitas",l:"la",m:"ciudad, estado"},{w:"urbs",l:"la",m:"ciudad"}],
+  example:"\u00AB\u1F08\u03BD\u03B8\u03C1\u03CE\u03C0\u03BF\u03C2 \u03C6\u03CD\u03C3\u03B5\u03B9 \u03C0\u03BF\u03BB\u03AF\u03C4\u03B7\u03C2.\u00BB \u2014 Aristoteles, Politica",
+  cmp:{griego:"\u03C0\u03CC\u03BB\u03B9\u03C2",es:"ciudad",it:"citta",fr:"cite",en:"city"}
+},
+
+{
+  id:"demokratia",
+  lemma:"\u03B4\u03B7\u03BC\u03BF\u03BA\u03C1\u03B1\u03C4\u03AF\u03B1 (demokratia)",
+  lang:"greek",
+  pos:"sustantivo (1a decl., fem.)",
+  themes:["III"],
+  level:"intermedio",
+  ipa:"/de\u0301.mo.kra.t\u00ED.a/",
+  defs:["Gobierno del pueblo; sistema politico en que el poder reside en los ciudadanos.","Para los atenienses: la isonomia (igualdad ante la ley) y la isegoria (igualdad de palabra)."],
+  etym:{
+    pie:"*dheh1- (demos) + *krat- (kratos)",
+    path:["Griego \u03B4\u1FE6\u03BC\u03BF\u03C2 (demos, pueblo)","Griego \u03BA\u03C1\u03AC\u03C4\u03BF\u03C2 (kratos, poder)","Griego \u03B4\u03B7\u03BC\u03BF\u03BA\u03C1\u03B1\u03C4\u03AF\u03B1 (demokratia)","Latin res publica (traduccion)","Prestamos directos: democracia"],
+    notes:"Compuesto transparente: demos (pueblo) + kratos (poder). Herodoto la menciona como la forma de gobierno en que las decisiones las toma el pueblo. Clistenes la institucionalizo en Atenas (508/507 a.C.). Pericles la perfecciono. Los opositores (Platon, Aristoteles en cierto modo) la llamaban oclocracia (gobierno de la muchedumbre). La palabra es una de las mas exportadas del griego."
+  },
+  evo:[],
+  deriv:[{w:"democracia",l:"es",u:"democracia liberal"},{w:"democratico",l:"es",u:"partido democratico"},{w:"democracy",l:"en",u:"liberal democracy"},{w:"democratie",l:"fr",u:"la democratie sociale"},{w:"democrazia",l:"it",u:"democrazia cristiana"}],
+  cogn:[{w:"republica",l:"la",m:"cosa publica (traduccion)"},{w:"aristocracia",l:"grc",m:"gobierno de los mejores"}],
+  example:"\u00AB\u03A4\u1F78 \u1F04\u03C1\u03B9\u03C3\u03C4\u03BF\u03BD \u03C4\u1F77\u03BD \u03B5\u1F30\u03C1\u1F74\u03BD\u03B1\u03B9 \u1F10\u03C3\u03C4\u1F76\u03BD \u03B4\u03B7\u03BC\u03BF\u03BA\u03C1\u03B1\u03C4\u03AF\u03B1\u03BD.\u00BB \u2014 Herodoto",
+  cmp:{griego:"\u03B4\u03B7\u03BC\u03BF\u03BA\u03C1\u03B1\u03C4\u03AF\u03B1",es:"democracia",it:"democrazia",fr:"democratie",en:"democracy"}
+},
+
+{
+  id:"agora",
+  lemma:"\u1F00\u03B3\u03BF\u03C1\u03AC (agora)",
+  lang:"greek",
+  pos:"sustantivo (1a decl., fem.)",
+  themes:["III","IX"],
+  level:"basico",
+  ipa:"/\u00E0.\u0261o.\u02C8ra\u0301/",
+  defs:["Plaza publica; el espacio de reunion, comercio y debate politico.","La asamblea del pueblo; el mercado como centro de la vida civica."],
+  etym:{
+    pie:"*h2eger- (reunir, conducir a)",
+    path:["PIE *h2eger-","Griego \u1F00\u03B3\u03B5\u03AF\u03C1\u03C9 (ageiro, reunir)","Griego \u1F00\u03B3\u03BF\u03C1\u03AC (agora, asamblea)","Prestamos: agorafobia, agorero"],
+    notes:"La agor\u00e1 era el corazon de la polis griega. No era solo mercado sino el lugar donde los ciudadanos debatian, votaban, comerciaban y filosofaban. Los sofistas enseñaban en la agora. Platon relata el juicio de Socrates ante la agor\u00e1. En nuestro tiempo, la idea de espacio publico como foro de deliberacion democratica desciende directamente de la agor\u00e1 griega."
+  },
+  evo:[],
+  deriv:[{w:"agorafobia",l:"es",u:"tratamiento de agorafobia"},{w:"agorero",l:"es",u:"un presagio agorero"},{w:"agoraphobia",l:"en",u:"social agoraphobia"},{w:"agoraphobie",l:"fr",u:"l'agoraphobie"}],
+  cogn:[{w:"forum",l:"la",m:"foro (equivalente romano)"},{w:"commercium",l:"la",m:"comercio"}],
+  example:"\u00AB\u1F08\u03BD\u03B1\u03B2\u03AC\u03B9\u03BD\u03B5\u03C2 \u03B5\u1F30\u03C2 \u03C4\u1F74\u03BD \u1F00\u03B3\u03BF\u03C1\u1F70\u03BD \u03BA\u03B1\u1F76 \u03C0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03B5\u1F77\u03C3\u03B8\u03B1\u03B9 \u1F00\u03BD\u1F77\u03C1\u03B3\u03C5\u03C1\u03BF\u03BD.\u00BB \u2014 Tesofrasto",
+  cmp:{griego:"\u1F00\u03B3\u03BF\u03C1\u03AC",es:"plaza publica",it:"piazza",fr:"place publique",en:"town square"}
+},
+
+{
+  id:"theos",
+  lemma:"\u03B8\u03B5\u03CC\u03C2 (theos)",
+  lang:"greek",
+  pos:"sustantivo (2a decl., masc.)",
+  themes:["V"],
+  level:"basico",
+  ipa:"/t\u02B0e.\u00F3s/",
+  defs:["Dios, divinidad; un ser supremo o sobrenatural.","En el plural (theoi): los dioses del Olimpo; los seres divinos."],
+  etym:{
+    pie:"*dheh1- (poner, establecer) o *dhes- (divino)",
+    path:["PIE *dhes- / *dheh1-","Griego \u03B8\u03B5\u03CC\u03C2 (theos, dios)","Latin deus (cognado probable)","Espanol: dios, teologia, teocracia, enteotemo"],
+    notes:"Theos y el latin deus probablemente comparten raiz PIE. La raiz esta en cientos de palabras: teologia (discurso sobre dios), teocracia (gobierno de dios), teofania (manifestacion divina), ateo (sin dios), politeista (muchos dioses). En la filosofia griega, el theos puede designar desde los dioses homericos hasta el Dios de Aristoteles (motor inmóvil). El cristianismo adopto theos para traducir Elohim/Yahweh."
+  },
+  evo:[],
+  deriv:[{w:"teologia",l:"es",u:"teologia sistem\u00e1tica"},{w:"teocracia",l:"es",u:"r\u00e9gimen teocr\u00e1tico"},{w:"ateo",l:"es",u:"declamarse ateo"},{w:"theology",l:"en",u:"systematic theology"},{w:"theologie",l:"fr",u:"la th\u00e9ologie"}],
+  cogn:[{w:"deus",l:"la",m:"dios"},{w:"deva",l:"san",m:"dios (posible cognado)"}],
+  example:"\u00AB\u038F\u03BD \u03B8\u03B5\u1F78\u03BD \u1F04\u03B3\u03B5\u03B9 \u1F55\u03C0\u03BD\u03B7\u03C4\u03BF\u03C2 \u1F40\u03BD\u03B8\u03C1\u03CE\u03C0\u03C9\u03BD \u1F51\u03C0\u03CC\u03BB\u03B7\u03C0\u03C4\u03BF\u03C2 \u03B8\u03B5\u03BF\u03AF\u03C2.\u00BB \u2014 Xenofanes",
+  cmp:{griego:"\u03B8\u03B5\u03CC\u03C2",es:"dios",it:"dio",fr:"dieu",en:"god"}
+},
+
+{
+  id:"hubris",
+  lemma:"\u1F5D\u03B2\u03C1\u03B9\u03C2 (hybris)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., fem.)",
+  themes:["V","VI"],
+  level:"intermedio",
+  ipa:"/\u02B0y\u0301.br\u026As/",
+  defs:["Desmesura, insolencia, orgullo desmedido; la ofensa a los dioses.","En la tragedia: el exceso que provoca la caida del heroe y la intervencion de N\u00e9mesis."],
+  etym:{
+    pie:"*ud- (arriba, exceso) o pre-griego",
+    path:["Pre-griego / desconocida","Griego \u1F5D\u03B2\u03C1\u03AF\u03B6\u03C9 (hybrizo, desmedirse)","Griego \u1F5D\u03B2\u03C1\u03B9\u03C2 (hybris, desmesura)","Prestamo directo: hubris (sin traduccion latin exacta)"],
+    notes:"La hubris es la ofensa contra el orden cosmico: cuando un mortal pretende igualarse a los dioses o viola las leyes de la hospitalidad. Es el motor de toda tragedia griega: Edipo, Creonte, los Atridas caen por hubris. La hubris atrae la n\u00e9mesis (castigo divino) y la ate (ceguera moral). No existe un equivalente exacto en latin; la palabra se ha adoptado directamente en espanol e ingles."
+  },
+  evo:[],
+  deriv:[{w:"hubris",l:"es",u:"la hubris de los poderosos"},{w:"hibridez",l:"es",u:"hibridez cultural (etimologia diferente)"},{w:"hubris",l:"en",u:"hubris and nemesis"},{w:"hubris",l:"fr",u:"la hubris"}],
+  cogn:[],
+  example:"\u00AB\u1F21 \u1F5D\u03B2\u03C1\u03B9\u03C2 \u03C4\u1F77\u03BD \u1F04\u03B3\u03B1\u03BC\u03BF\u03BD \u1F00\u03BD\u1F73\u03C1 \u03BA\u03B1\u03C4\u03B1\u03C3\u03B8\u03B5\u1F76.\u00BB \u2014 Esquilo, Agamenn",
+  cmp:{griego:"\u1F5D\u03B2\u03C1\u03B9\u03C2",es:"desmesura",it:"superbia",fr:"hubris",en:"hubris"}
+},
+
+{
+  id:"nomos",
+  lemma:"\u03BD\u03CC\u03BC\u03BF\u03C2 (nomos)",
+  lang:"greek",
+  pos:"sustantivo (2a decl., masc.)",
+  themes:["III","VII"],
+  level:"avanzado",
+  ipa:"/n\u00F3.mos/",
+  defs:["Ley, costumbre, norma; lo que esta establecido por convencion.","En la filosofia presocratica: lo convencional opuesto a physis (lo natural)."],
+  etym:{
+    pie:"*nem- (distribuir, asignar, dividir)",
+    path:["PIE *nem-","Griego \u03BD\u03AD\u03BC\u03C9 (nemo, distribuir)","Griego \u03BD\u03CC\u03BC\u03BF\u03C2 (nomos, ley, costumbre)","Latin lex (traduccion)","Prestamos: economia, astronomia, autonoma, anomia"],
+    notes:"El debate nomos vs. physis fue central en el pensamiento griego. Los sofistas afirmaban que las leyes son convenciones humanas (nomos), no verdades naturales (physis). Antifonte y Calicles usaron esta distincion para cuestionar la moral convencional. Aristoteles la resuelve: el nomos justo refleja la physis humana. La palabra da economia (ley de la casa), astronomia (ley de las estrellas), autonoma (ley propia) y anomia (sin ley)."
+  },
+  evo:[],
+  deriv:[{w:"economia",l:"es",u:"economia global"},{w:"astronomia",l:"es",u:"astronomia observacional"},{w:"autonomia",l:"es",u:"autonomia universitaria"},{w:"anomia",l:"es",u:"situacion de anomia"},{w:"economy",l:"en",u:"global economy"}],
+  cogn:[{w:"lex",l:"la",m:"ley"},{w:"law",l:"en",m:"ley (diferente raiz)"}],
+  example:"\u00AB\u1F0C\u03C1\u03B9\u03C3\u03C4\u03BF\u03BD \u1F10\u03C3\u03C4\u1F76\u03BD \u1F10\u03BA \u03BD\u03CC\u03BC\u03BF\u03C5 \u03C4\u03B5\u03BB\u03B5\u03C5\u03C4\u03B1\u03AF\u03B1\u03BD \u1F00\u03C0\u03B1\u03B3\u03B3\u03B5\u03BB\u03BB\u03B1\u03AF\u03C2.\u00BB \u2014 Aristoteles",
+  cmp:{griego:"\u03BD\u03CC\u03BC\u03BF\u03C2",es:"ley",it:"legge",fr:"loi",en:"law"}
+},
+
+{
+  id:"pragma",
+  lemma:"\u03C0\u03C1\u1FBE\u03B3\u03BC\u03B1 (pragma)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., neutro)",
+  themes:["I","VII"],
+  level:"intermedio",
+  ipa:"/pr\u00E1\u0261.ma/",
+  defs:["Hecho, accion, asunto practico; lo que ha sido hecho.","En filosofia estoica: la realidad concreta, lo que existe como hecho."],
+  etym:{
+    pie:"*per- (atravesar, hacer, producir)",
+    path:["PIE *per-","Griego \u03C0\u03C1\u03AC\u03C3\u03C3\u03C9 (prasso, hacer)","Griego \u03C0\u03C1\u1FBE\u03B3\u03BC\u03B1 (pragma, hecho, accion)","Prestamos: pragmatico, programa, pragm\u00e1tica"],
+    notes:"Los estoicos distinguian entre pragma (lo que existe como hecho) y lekton (lo que se dice, el significado). Un pragma es una realidad corporea; el lekton es incorporeo. En el uso moderno, pragmatico significa orientado a la accion, practico. Peirce lo uso para fundar la filosofia pragmatica: el significado de un concepto esta en sus efectos practicos."
+  },
+  evo:[],
+  deriv:[{w:"pragmatico",l:"es",u:"enfoque pragmatico"},{w:"programa",l:"es",u:"un programa politico"},{w:"pragmatics",l:"en",u:"linguistic pragmatics"},{w:"pragmatique",l:"fr",u:"approche pragmatique"}],
+  cogn:[{w:"factum",l:"la",m:"hecho"},{w:"res",l:"la",m:"cosa, asunto"}],
+  example:"\u00AB\u03A0\u03C1\u1FBE\u03B3\u03BC\u03B1 \u1F10\u03C3\u03C4\u1F76\u03BD \u1F45\u03C4\u03B9 \u03C0\u03C1\u1F70\u03C4\u03C4\u03B5\u03C4\u03B1\u03B9 \u03BA\u03B1\u1F76 \u03B8\u03B5\u03B1\u03C4\u03B5\u1F77\u03C4\u03B1\u03B9.\u00BB \u2014 Epicteto",
+  cmp:{griego:"\u03C0\u03C1\u1FBE\u03B3\u03BC\u03B1",es:"hecho",it:"fatto",fr:"fait",en:"fact"}
+},
+
+{
+  id:"aisthesis",
+  lemma:"\u03B1\u1F34\u03C3\u03B8\u03B7\u03C3\u03B9\u03C2 (aisthesis)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., fem.)",
+  themes:["VII","VIII"],
+  level:"avanzado",
+  ipa:"/ais\u0301.\u03B8e\u0301.sis/",
+  defs:["Percepcion sensorial, sensacion; la facultad de percibir mediante los sentidos.","En la estetica moderna: el estudio de la percepcion y los sentidos."],
+  etym:{
+    pie:"*h2ey- (percibir, sentir)",
+    path:["PIE *h2ey-","Griego \u03B1\u1F30\u03C3\u03B8\u03AC\u03BD\u03BF\u03BC\u03B1\u03B9 (aisthanomai, percibir)","Griego \u03B1\u1F34\u03C3\u03B8\u03B7\u03C3\u03B9\u03C2 (aisthesis, percepcion)","Prestamos: estetica, anestesia, sinestesia"],
+    notes:"Baumgarten acuno el termino estetica (1750) del griego aisthesis: la ciencia de la percepcion sensible, del conocimiento por los sentidos. Aristoteles habia tratado la aisthesis en De Anima como la facultad fundamental que compartimos con los animales. Platn desconfiaba de la aisthesis frente al nous (intelecto). La palabra anestesia es literalmente aisthesis: sin percepcion."
+  },
+  evo:[],
+  deriv:[{w:"estetica",l:"es",u:"estetica contemporanea"},{w:"anestesia",l:"es",u:"anestesia general"},{w:"sinestesia",l:"es",u:"sinestesia artistica"},{w:"aesthetics",l:"en",u:"environmental aesthetics"},{w:"anesthesie",l:"fr",u:"l'anesthesie locale"}],
+  cogn:[{w:"sensus",l:"la",m:"percepcion"},{w:"sense",l:"en",m:"sentido"}],
+  example:"\u00AB\u0391\u1F34\u03C3\u03B8\u03B7\u03C3\u03B9\u03C2 \u03C0\u03AC\u03BD\u03C4\u03C9\u03BD \u03B5\u1F30\u03C3\u1F76\u03BD \u03C4\u1F78 \u03B1\u1F50\u03C4\u03CC, \u03B4\u03B9\u03B4\u03B1\u03BA\u03C4\u1F77\u03B3\u03B8\u03B1\u03B9 \u03B4\u1FBD \u03B1\u1F34\u03C3\u03B8\u03B5\u03C4\u03B1\u03B9.\u00BB \u2014 Aristoteles, Etica a Nicomaco",
+  cmp:{griego:"\u03B1\u1F34\u03C3\u03B8\u03B7\u03C3\u03B9\u03C2",es:"percepcion",it:"percezione",fr:"perception",en:"perception"}
+},
+
+{
+  id:"kairos",
+  lemma:"\u03BA\u03B1\u03B9\u03C1\u03CC\u03C2 (kairos)",
+  lang:"greek",
+  pos:"sustantivo (2a decl., masc.)",
+  themes:["I","VI","IX"],
+  level:"intermedio",
+  ipa:"/kai.\u02C8r\u00F3s/",
+  defs:["El momento oportuno, la ocasion precisa; el tiempo cualitativo.","Opuesto a chronos: no la duracion cuantitativa, sino la cualidad del instante."],
+  etym:{
+    pie:"*kew- (observar, notar) o raiz pre-griega",
+    path:["Raiz pre-griega / incierta","Griego \u03BA\u03B1\u03B9\u03C1\u03CC\u03C2 (kairos, momento oportuno)","Latin occasio (traduccion parcial)","Prestamo directo: kairos"],
+    notes:"El kairos es uno de los conceptos mas ricos de la cultura griega. Mientras chronos es el tiempo cuantitativo que fluye irreversiblemente, kairos es el instante decisivo, la oportunidad que hay que atrapar. Los sofistas ensenaban a reconocer el kairos en la retorica. El Nuevo Testamento usa kairos para el momento de la salvacion. Heidegger distingue kairos del tiempo vulgar. Hoy se usa en teologia, retorica y management."
+  },
+  evo:[],
+  deriv:[{w:"oportunidad",l:"es",u:"una oportunidad unica"},{w:"ocasion",l:"es",u:"la ocasion perfecta"},{w:"kairos",l:"es",u:"el kairos teologico"},{w:"opportunity",l:"en",u:"a window of opportunity"}],
+  cogn:[{w:"chronos",l:"grc",m:"tiempo cuantitativo (opuesto)"},{w:"occasio",l:"la",m:"ocasion"}],
+  example:"\u00AB\u03A0\u1F71\u03BD\u03C4\u03C9\u03BD \u1F03BD \u03BA\u03B1\u03B9\u03C1\u1F78\u03BD \u1F45\u03C4\u03B9 \u1F10\u03BA\u03C6\u1FE5\u03B3\u03B5\u03B9 \u1F41 \u03BB\u03CC\u03B3\u03BF\u03C2.\u00BB \u2014 Proverbio griego",
+  cmp:{griego:"\u03BA\u03B1\u03B9\u03C1\u03CC\u03C2",es:"oportunidad",it:"occasione",fr:"occasion",en:"opportunity"}
+},
+
+{
+  id:"phronesis",
+  lemma:"\u03C6\u03C1\u03CC\u03BD\u03B7\u03C3\u03B9\u03C2 (phronesis)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., fem.)",
+  themes:["I","VII"],
+  level:"avanzado",
+  ipa:"/p\u02B0ro\u0301.\u03BDi\u02D0.sis/",
+  defs:["Prudencia, sabiduria practica; la capacidad de deliberar bien sobre lo conveniente.","Para Aristoteles: la virtud intelectual que guia la accion moral correcta."],
+  etym:{
+    pie:"*gwhreneh2- (mente, pensamiento, sentido)",
+    path:["PIE *gwhreneh2-","Griego \u03C6\u03C1\u03AD\u03C9 (phreo, pensar)","Griego \u03C6\u03C1\u03CC\u03BD\u03B7\u03C3\u03B9\u03C2 (phronesis, prudencia)","Latin prudentia (traduccion)","Prestamos: metronomo (v\u00eda phroneo + nomos)"],
+    notes:"Para Aristoteles, la phronesis es la virtud intelectual mas importante para la vida humana. No es conocimiento teorico (sophia) ni destreza tecnica (techne), sino la capacidad practica de decidir bien en cada situacion concreta. El phronimos (el prudente) sabe deliberar sobre lo bueno para la vida humana. Gadamer recupero el concepto en Verdad y Metodo como forma fundamental de conocimiento."
+  },
+  evo:[],
+  deriv:[{w:"prudencia",l:"es",u:"prudencia y templanza"},{w:"prudente",l:"es",u:"un hombre prudente"},{w:"prudence",l:"en",u:"judicial prudence"},{w:"prudence",l:"fr",u:"la prudence moderne"},{w:"prudenza",l:"it",u:"la prudenza"}],
+  cogn:[{w:"prudentia",l:"la",m:"prudencia"},{w:"sophia",l:"grc",m:"sabiduria teorica (complementaria)"}],
+  example:"\u00AB\u03A6\u03C1\u03CC\u03BD\u03B7\u03C3\u03B9\u03C2 \u1F10\u03C3\u03C4\u1F76\u03BD \u1F41\u03C1\u03B1\u1F77\u03B7 \u03C0\u03B5\u03C1\u1F76 \u03C4\u1F70 \u1F04\u03BD\u03B8\u03C1\u03C9\u03C0\u03B9\u03BD\u03B1 \u03C4\u1F77\u03BD \u03B1\u1F30\u1F73\u03BD\u03B9\u03BF\u03BD \u03B1\u03B3\u03B1\u03B8\u1F77\u03BD.\u00BB \u2014 Aristoteles, Etica a Nicomaco",
+  cmp:{griego:"\u03C6\u03C1\u03CC\u03BD\u03B7\u03C3\u03B9\u03C2",es:"prudencia",it:"prudenza",fr:"prudence",en:"prudence"}
+},
+
+{
+  id:"sophia",
+  lemma:"\u03C3\u03BF\u03C6\u03AF\u03B1 (sophia)",
+  lang:"greek",
+  pos:"sustantivo (1a decl., fem.)",
+  themes:["I"],
+  level:"basico",
+  ipa:"/so.\u02C8f\u00ED.a/",
+  defs:["Sabiduria profunda, maestria, conocimiento supremo.","En filosofia: el conocimiento de las causas primeras y ultimas de la realidad."],
+  etym:{
+    pie:"*seh2p- (sabor, sabiduria, habilidad)",
+    path:["PIE *seh2p-","Griego \u03C3\u03BF\u03C6\u03CC\u03C2 (sophos, sabio)","Griego \u03C3\u03BF\u03C6\u03AF\u03B1 (sophia, sabiduria)","Prestamos: filosofia, sofista, teosofia"],
+    notes:"Sophia es la sabiduria como estado perfecto del conocimiento. Pitagoras se llamo philos-sophos (amante de la sabiduria), no sophos. Platon distingue la sophia (conocimiento de lo eterno, accesible solo al filosofo) de la doxa (opinion, accesible al vulgo). Aristoteles la define como la union de nous (intuicion) y episteme (ciencia). En la Biblia griega, Sophia es personificada como figura divina (Proverbios 8)."
+  },
+  evo:[],
+  deriv:[{w:"filosofia",l:"es",u:"filosofia antigua"},{w:"sofia",l:"es",u:"nombre propio"},{w:"philosophy",l:"en",u:"natural philosophy"},{w:"philosophie",l:"fr",u:"la philosophie morale"},{w:"teosofia",l:"es",u:"teosofia esoterica"}],
+  cogn:[{w:"sapientia",l:"la",m:"sabiduria (traduccion)"},{w:"wisdom",l:"en",m:"sabiduria (diferente raiz)"}],
+  example:"\u00AB\u03A3\u03BF\u03C6\u03AF\u03B1 \u1F10\u03C3\u03C4\u1F76\u03BD \u1F41\u03C1\u03B1\u1F77\u03B7 \u03C0\u03C1\u1F70\u03B3\u03BC\u03B1\u03C4\u03B9\u03C2 \u03BA\u03B1\u1F76 \u1F05\u03C1\u03C7\u03B7 \u03C4\u1F77\u03BD \u03C4\u03B5\u03BB\u03B5\u03C5\u03C4\u1F77\u03BD.\u00BB \u2014 Aristoteles, Metafisica",
+  cmp:{griego:"\u03C3\u03BF\u03C6\u03AF\u03B1",es:"sabiduria",it:"saggezza",fr:"sagesse",en:"wisdom"}
+},
+
+{
+  id:"dynamis",
+  lemma:"\u03B4\u03CD\u03BD\u03B1\u03BC\u03B9\u03C2 (dynamis)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., fem.)",
+  themes:["I","IV"],
+  level:"intermedio",
+  ipa:"/d\u00FA.na.mis/",
+  defs:["Fuerza, poder, capacidad; la posibilidad de algo.","En Aristoteles: la potencialidad, opuesta a energeia (acto, realidad actual)."],
+  etym:{
+    pie:"*dewh2- (poder, ser capaz)",
+    path:["PIE *dewh2-","Griego \u03B4\u03CD\u03BD\u03B1\u03BC\u03B1\u03B9 (dynamai, poder)","Griego \u03B4\u03CD\u03BD\u03B1\u03BC\u03B9\u03C2 (dynamis, fuerza, potencia)","Prestamos: dinamita, dinamica, dinamo"],
+    notes:"Aristoteles construye gran parte de su metafisica sobre la distincion dynamis/energeia: la semilla es dynamis (potencia de arbol), el arbol es energeia. La dynamis no es mera posibilidad logica sino una fuerza real inscrita en las cosas. Nobel tomo el nombre dinamita del griego dynamis. En fisica, dynamis se transformo en la palabra energia, otro concepto aristotelico."
+  },
+  evo:[],
+  deriv:[{w:"dinamita",l:"es",u:"dinamita industrial"},{w:"dinamica",l:"es",u:"dinamica de fluidos"},{w:"dinamo",l:"es",u:"la dinamo electrica"},{w:"dynamics",l:"en",u:"group dynamics"},{w:"dynamique",l:"fr",u:"la dynamique sociale"}],
+  cogn:[{w:"potentia",l:"la",m:"potencia (traduccion)"},{w:"vis",l:"la",m:"fuerza"}],
+  example:"\u00AB\u0394\u03CD\u03BD\u03B1\u03BC\u03B9\u03C2 \u1F03BD \u1F10\u03C3\u03C4\u1F76\u03BD \u1F10\u03BD\u03B5\u03C1\u03B3\u03B5\u03AF\u03B1\u03C2, \u1F00\u03BB\u03BB\u1FBD \u1F10\u03C3\u03C4\u1F76\u03BD \u1F00\u03B4\u03CD\u03BD\u03B1\u03C4\u03BF\u03BD.\u00BB \u2014 Aristoteles, Metafisica",
+  cmp:{griego:"\u03B4\u03CD\u03BD\u03B1\u03BC\u03B9\u03C2",es:"fuerza",it:"forza",fr:"force",en:"power"}
+},
+
+{
+  id:"kenoma",
+  lemma:"\u03BA\u03B5\u03BD\u03CC\u03BD (kenon)",
+  lang:"greek",
+  pos:"sustantivo (2a decl., neutro)",
+  themes:["V","VII"],
+  level:"avanzado",
+  ipa:"/ke.\u02C8n\u00F3n/",
+  defs:["Vacio, vaciedad; el espacio vacio, la nada.","En teologia cristiana: kenosis, el vaciamiento voluntario de Dios (Filipenses 2:7)."],
+  etym:{
+    pie:"*kenH- (vaciar, hueco)",
+    path:["PIE *kenH-","Griego \u03BA\u03B5\u03BD\u03CC\u03C2 (kenon, vacio)","Griego \u03BA\u03B5\u03BD\u03CC\u03C9 (kenoo, vaciar)","Latin vacuum (traduccion)","Prestamos: kenosis (teologia)"],
+    notes:"Los atomistas (Democrito, Leucipo) postularon el kenon (vacio) como condicion necesaria para el movimiento de los atomos. Platon lo nego: el vacio no existe, solo el espacio. Aristoteles rechazo el vacio en la fisica: la naturaleza horroriza el vacio (horror vacui). En teologia cristiana, kenosis es el despojamiento voluntario de Cristo de su gloria divina para hacerse hombre, un concepto clave de la cristologia."
+  },
+  evo:[],
+  deriv:[{w:"kenosis",l:"es",u:"la kenosis cristica"},{w:"ceniza",l:"es",u:"reducir a cenizas (etimologia diferente)"},{w:"kenosis",l:"en",u:"the kenosis of God"},{w:"kenose",l:"fr",u:"la kenose christique"}],
+  cogn:[{w:"vacuum",l:"la",m:"vacio"},{w:"chaos",l:"grc",m:"caos (concepto emparentado)"}],
+  example:"\u00AB\u0391\u03BB\u03BB\u1FBD \u1F10\u03B1\u03C5\u03C4\u1F78\u03BD \u1F45\u03C4\u03B9 \u03BA\u03B5\u03BD\u1F78\u03C2 \u03B5\u1F30\u03C2 \u1F40\u03BD\u03B8\u03C1\u03CE\u03C0\u03BF\u03C5\u03C2 \u1F40\u03BD\u03B5\u03BD\u03B5\u03B3\u03BA\u03B5\u03BD.\u00BB \u2014 Hipias Mayor (parafraesis)",
+  cmp:{griego:"\u03BA\u03B5\u03BD\u03CC\u03BD",es:"vacio",it:"vuoto",fr:"vide",en:"void"}
+},
+
+{
+  id:"soma",
+  lemma:"\u03C3\u1FE6\u03BC\u03B1 (soma)",
+  lang:"greek",
+  pos:"sustantivo (3a decl., neutro)",
+  themes:["IV","IX"],
+  level:"basico",
+  ipa:"/s\u022A\u0301.ma/",
+  defs:["Cuerpo fisico, organismo; la dimension material del ser vivo.","En Platn: la prision del alma; en Aristoteles: la materia del ser viviente."],
+  etym:{
+    pie:"*seh2k- (cuerpo, sebo, grosura)",
+    path:["PIE *seh2k-","Griego \u03C3\u1FE6\u03BC\u03B1 (soma, cuerpo)","Latin corpus (traduccion, no cognado)","Prestamos: somatico, somatometria, psicosomatico"],
+    notes:"En Homero, soma designaba el cadaver; pyge era el cuerpo vivo. A partir de los presocraticos, soma adquiere su sentido moderno. Platon ve el soma como tumba del alma (soma sema). Aristoteles lo integra: el cuerpo no es prision sino materia organizada por el alma. El dualismo platonico-cristiano (cuerpo vs alma) domina la cultura occidental. Freud retoma psyche/soma como mente/cuerpo."
+  },
+  evo:[],
+  deriv:[{w:"som\u00e1tico",l:"es",u:"enfermedad som\u00e1tica"},{w:"psicosom\u00e1tico",l:"es",u:"trastorno psicosom\u00e1tico"},{w:"somatic",l:"en",u:"somatic therapy"},{w:"somatique",l:"fr",u:"medecine somatique"}],
+  cogn:[{w:"corpus",l:"la",m:"cuerpo"},{w:"body",l:"en",m:"cuerpo (diferente raiz)"}],
+  example:"\u00AB\u03A3\u1FE6\u03BC\u03B1 \u03C3\u1F86\u03BC\u03B1 \u1F10\u03C3\u03C4\u03B9\u03BD.\u00BB \u2014 Platn, Cratilo",
+  cmp:{griego:"\u03C3\u1FE6\u03BC\u03B1",es:"cuerpo",it:"corpo",fr:"corps",en:"body"}
+}
+
+]; // END ENTRIES
+
+/* ============================================================
+   STATE
+   ============================================================ */
+var currentMode = "basico";
+var currentTheme = null;
+var searchQuery = "";
+var searchInput, mainContent, modeBar, themesNav;
+
+/* ============================================================
+   FUNCTIONS
+   ============================================================ */
+function setMode(mode) {
+  currentMode = mode;
+  document.body.className = "mode-" + mode;
+  var btns = modeBar.querySelectorAll(".mode-btn");
+  for (var i = 0; i < btns.length; i++) {
+    if (btns[i].getAttribute("data-mode") === mode) {
+      btns[i].classList.add("active");
+    } else {
+      btns[i].classList.remove("active");
+    }
+  }
+  renderEntries();
+}
+
+function setTheme(themeId) {
+  currentTheme = (currentTheme === themeId) ? null : themeId;
+  var btns = themesNav.querySelectorAll(".theme-btn");
+  for (var i = 0; i < btns.length; i++) {
+    if (btns[i].getAttribute("data-theme") === currentTheme) {
+      btns[i].classList.add("active");
+    } else {
+      btns[i].classList.remove("active");
+    }
+  }
+  renderEntries();
+}
+
+function getDefText(def) {
+  return typeof def === 'string' ? def : (def.text || '');
+}
+
+function getExampleText(ex) {
+  if (typeof ex === 'string') return ex;
+  if (ex && ex.quote) return ex.quote + ' — ' + (ex.author || '') + ', ' + (ex.work || '');
+  return '';
+}
+
+function getEtymPathText(path) {
+  return typeof path === 'string' ? path : (path.form || path.stage || '');
+}
+
+function filterEntries() {
+  var results = [];
+  for (var i = 0; i < ENTRIES.length; i++) {
+    var e = ENTRIES[i];
+    if (currentTheme && e.themes.indexOf(currentTheme) === -1) continue;
+    if (searchQuery) {
+      var q = searchQuery.toLowerCase();
+      var found = false;
+      if (e.lemma.toLowerCase().indexOf(q) !== -1) found = true;
+      if (!found) {
+        for (var d = 0; d < e.defs.length; d++) {
+          var defText = getDefText(e.defs[d]);
+          if (defText.toLowerCase().indexOf(q) !== -1) { found = true; break; }
+        }
+      }
+      if (!found && e.etym && e.etym.pie && e.etym.pie.toLowerCase().indexOf(q) !== -1) found = true;
+      if (!found && e.deriv) {
+        for (var dv = 0; dv < e.deriv.length; dv++) {
+          if (e.deriv[dv].w.toLowerCase().indexOf(q) !== -1) { found = true; break; }
+        }
+      }
+      if (!found && e.cogn) {
+        for (var c = 0; c < e.cogn.length; c++) {
+          if (e.cogn[c].w.toLowerCase().indexOf(q) !== -1) { found = true; break; }
+        }
+      }
+      if (!found) {
+        var exText = getExampleText(e.example);
+        if (exText.toLowerCase().indexOf(q) !== -1) found = true;
+      }
+      if (!found) continue;
+    }
+    results.push(e);
+  }
+  return results;
+}
+
+function esc(str) {
+  var d = document.createElement("div");
+  d.appendChild(document.createTextNode(str));
+  return d.innerHTML;
+}
+
+function renderEntries() {
+  var filtered = filterEntries();
+  var html = "";
+  html += '<div class="results-counter">' + filtered.length + ' entrada' + (filtered.length !== 1 ? "s" : "") + '</div>';
+
+  if (filtered.length === 0) {
+    html += '<div class="no-results">No se encontraron resultados.<small>Intenta con otra busqueda o selecciona un area tematica.</small></div>';
+    mainContent.innerHTML = html;
+    return;
+  }
+
+  var featured = ["logos", "physis"];
+  var sorted = filtered.slice().sort(function(a, b) {
+    var aI = featured.indexOf(a.id);
+    var bI = featured.indexOf(b.id);
+    if (aI !== -1 && bI === -1) return -1;
+    if (aI === -1 && bI !== -1) return 1;
+    return 0;
+  });
+
+  for (var i = 0; i < sorted.length; i++) {
+    html += renderEntry(sorted[i]);
+  }
+  mainContent.innerHTML = html;
+}
+
+function renderEntry(e) {
+  var featured = (e.id === "logos" || e.id === "physis") ? " featured" : "";
+  var h = '<article class="entry-card' + featured + '" id="' + e.id + '">';
+  h += '<div class="entry-header">';
+  h += '<span class="entry-lemma">' + esc(e.lemma) + '</span>';
+  h += '<span class="entry-pos">' + esc(e.pos) + '</span>';
+  if (e.ipa) h += '<span class="entry-ipa">' + esc(e.ipa) + '</span>';
+  h += '<span class="entry-level">' + esc(e.level) + ' &middot; GRIEGO</span>';
+  h += '</div>';
+  h += '<div class="entry-body">';
+
+  h += '<dl class="entry-def"><dt>Definiciones</dt>';
+  for (var d = 0; d < e.defs.length; d++) {
+    var def = e.defs[d];
+    var defText = typeof def === 'string' ? def : def.text;
+    var defAudience = typeof def === 'string' ? null : def.audience;
+    var defClass = defAudience ? ' lvl-' + defAudience : '';
+    h += '<dd class="' + defClass + '">' + esc(defText) + '</dd>';
+  }
+  h += '</dl>';
+
+  h += '<div class="etym-section"><h4>Etimologia</h4>';
+  h += '<div class="etym-path">';
+  if (e.etym.pie) h += '<span class="node">' + esc(e.etym.pie) + '</span>';
+  for (var p = 0; p < e.etym.path.length; p++) {
+    var pathNode = e.etym.path[p];
+    var pathText = typeof pathNode === 'string' ? pathNode : (pathNode.form || pathNode.stage || '');
+    var pathTitle = typeof pathNode === 'string' ? '' : (pathNode.note || '');
+    h += '<span class="arrow">&rarr;</span><span class="node" title="' + esc(pathTitle) + '">' + esc(pathText) + '</span>';
+  }
+  h += '</div>';
+  h += '<p class="etym-notes">' + esc(e.etym.notes) + '</p>';
+  h += '</div>';
+
+  if (e.cmp) {
+    h += '<div class="compare-section lvl-avanzado"><h4>Comparacion transcultural</h4>';
+    h += '<table class="compare-table"><tr><th>Griego</th><th>Espanol</th><th>Italiano</th><th>Frances</th><th>Ingles</th></tr>';
+    h += '<tr><td>' + esc(e.cmp.griego) + '</td><td>' + esc(e.cmp.es) + '</td><td>' + esc(e.cmp.it) + '</td><td>' + esc(e.cmp.fr) + '</td><td>' + esc(e.cmp.en) + '</td></tr>';
+    h += '</table></div>';
+  }
+
+  if (e.deriv.length > 0) {
+    h += '<div class="deriv-section"><h4>Derivados</h4><div class="deriv-grid">';
+    for (var dv = 0; dv < e.deriv.length; dv++) {
+      h += '<div class="deriv-item"><span>' + esc(e.deriv[dv].w) + '</span><span class="lang">' + esc(e.deriv[dv].l) + '</span></div>';
+    }
+    h += '</div></div>';
+  }
+
+  if (e.cogn.length > 0) {
+    h += '<div class="cogn-section lvl-intermedio"><h4>Cognados</h4><div class="deriv-grid">';
+    for (var c = 0; c < e.cogn.length; c++) {
+      var ctext = esc(e.cogn[c].w);
+      if (e.cogn[c].m) ctext += ' (' + esc(e.cogn[c].m) + ')';
+      h += '<div class="deriv-item"><span>' + ctext + '</span><span class="lang">' + esc(e.cogn[c].l) + '</span></div>';
+    }
+    h += '</div></div>';
+  }
+
+  var exHtml = '';
+  if (typeof e.example === 'string') {
+    exHtml = esc(e.example);
+  } else if (e.example && e.example.quote) {
+    exHtml = '<div class="ex-quote">' + esc(e.example.quote) + '</div>';
+    if (e.example.gloss) exHtml += '<div class="ex-gloss">' + esc(e.example.gloss) + '</div>';
+    if (e.example.author || e.example.work) {
+      exHtml += '<div class="ex-ref">— ' + esc(e.example.author || '') + (e.example.work ? ', <em>' + esc(e.example.work) + '</em>' : '') + '</div>';
+    }
+  }
+  h += '<div class="entry-example">' + exHtml + '</div>';
+
+  h += '<div style="margin-top:.7rem">';
+  for (var t = 0; t < e.themes.length; t++) {
+    var thm = null;
+    for (var ti = 0; ti < THEMES.length; ti++) {
+      if (THEMES[ti].id === e.themes[t]) { thm = THEMES[ti]; break; }
+    }
+    if (thm) h += '<span class="tag">' + esc(thm.label) + '</span>';
+  }
+  h += '</div>';
+
+  h += '</div></article>';
+  return h;
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init() {
+  searchInput = document.getElementById("searchInput");
+  mainContent = document.getElementById("mainContent");
+  modeBar = document.getElementById("modeBar");
+  themesNav = document.getElementById("themesNav");
+
+  var thtml = "";
+  for (var i = 0; i < THEMES.length; i++) {
+    thtml += '<button class="theme-btn" data-theme="' + THEMES[i].id + '">' + THEMES[i].id + '</button>';
+  }
+  themesNav.innerHTML = thtml;
+
+  themesNav.addEventListener("click", function(ev) {
+    var btn = ev.target;
+    if (btn.classList && btn.classList.contains("theme-btn")) {
+      setTheme(btn.getAttribute("data-theme"));
+    }
+  });
+
+  modeBar.addEventListener("click", function(ev) {
+    var btn = ev.target;
+    if (btn.classList && btn.classList.contains("mode-btn")) {
+      setMode(btn.getAttribute("data-mode"));
+    }
+  });
+
+  var debounceTimer = null;
+  searchInput.addEventListener("input", function() {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(function() {
+      searchQuery = searchInput.value.trim();
+      renderEntries();
+    }, 150);
+  });
+
+  searchInput.addEventListener("keydown", function(ev) {
+    if (ev.key === "Enter") {
+      searchQuery = searchInput.value.trim();
+      renderEntries();
+    }
+  });
+
+  renderEntries();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
+
+})();
+</script>
+</body>
+</html>
